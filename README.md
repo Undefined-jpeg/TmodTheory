@@ -43,3 +43,17 @@ python3 tools/verify.py 74 87    # check specific indices
 The script ends with `OK 184  BAD 0` when every file matches the place exactly.
 After you edit any script, its manifest row will no longer match. That is
 expected: the manifest is a snapshot from the export.
+
+## Used, unused and duplicate scripts
+
+The export has been sorted. See [USAGE_REPORT.md](USAGE_REPORT.md) for the full list and the reason for each file.
+
+| Folder | Contents | Count |
+|--------|----------|------:|
+| service folders (`ReplicatedStorage/`, …) | scripts that run or are required | 123 |
+| `_Unused/` | scripts that never run and are never required: empty scripts, ServerStorage backups, unrequired modules, and scripts inside asset templates | 18 |
+| `_Duplicates/` | byte-for-byte copies of another script; the first copy stays in its normal place | 43 |
+
+Inside `_Unused/` and `_Duplicates/`, files keep their original path.
+
+In `manifest.tsv` the `path` column gives each file's current location. The `studio_path` column gives where the file came from, `status` says used, unused or duplicate, and `note` gives the reason. Unused and duplicate files are still in the place itself. In particular, the Workspace duplicates are needed there: each door and part runs its own copy.

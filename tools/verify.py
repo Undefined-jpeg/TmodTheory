@@ -11,7 +11,7 @@ def fnv1a(b):
 want = set(int(a) for a in sys.argv[1:])
 ok = bad = 0
 for line in open(os.path.join(ROOT, "manifest.tsv"), encoding="utf-8").read().splitlines()[1:]:
-    idx, n, h, path = line.split("\t")
+    idx, n, h, path = line.split("\t")[:4]
     if want and int(idx) not in want: continue
     p = os.path.join(ROOT, path)
     if not os.path.exists(p):
