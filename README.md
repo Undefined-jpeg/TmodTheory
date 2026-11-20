@@ -60,3 +60,43 @@ This repository keeps only the **123 scripts that are used**. The other 61 have 
 - `note`: the reason for its status.
 
 `tools/verify.py` checks only the used rows.
+
+## Rojo (scripts only)
+
+`default.project.json` syncs **only scripts**. It covers 120 of the 123 scripts, in these places:
+
+- `ReplicatedFirst.LoadingScreen`
+- `ReplicatedStorage.BaldiShared`, `EzUISprings` and `Packages`
+- `ServerScriptService.Main`, `WorldSoundApplier` and `BaldiGame`
+- `StarterPlayer.StarterPlayerScripts.Main` and `BaldiClient`
+
+Every node in the project sets `$ignoreUnknownInstances: true`. Every synced folder also has an
+`init.meta.json` with `{"ignoreUnknownInstances": true}`. Because of this, Rojo **never deletes
+anything that is in Studio but not in this repo**. That includes:
+
+- `ReplicatedStorage.BaldiShared.BaldiAssets`, with `Npcs`, `Items` and `Traps`
+- `ReplicatedFirst.LoadingScreen.LoadingGui`, and all UI, models, sounds and other services
+- the Studio-only modules `Packages.README`, `BaldiGame.NpcAnimator`, `BaldiGame.WaypointGraph` and `BaldiClient.UiKit`
+
+`Workspace` is **not synced**. Its 3 scripts sit inside models and parts that have siblings with the
+same name, so Rojo could not match them to the right instance. Edit those scripts in Studio.
+The `Workspace/` files here are a reference copy only.
+
+`emitLegacyScripts` is on, so scripts keep the classic `Script`, `LocalScript` and `ModuleScript`
+classes, as they are in the place.
+
+### Connecting
+
+1. Save or back up the place first. Use File → Save to File, or publish it.
+2. From this folder, run `rojo serve`.
+3. In Studio, open the Rojo plugin and click **Connect** (`localhost:34872`).
+4. Edit the `.luau` files here. Rojo pushes the changes to Studio live.
+
+Rojo sync goes one way, from files to Studio. If you edit a synced script in Studio while you are
+connected, the next save of that file overwrites your Studio edit.
+
+To regenerate the sourcemap for luau-lsp, run:
+
+```bash
+rojo sourcemap default.project.json -o sourcemap.json
+```
