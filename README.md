@@ -1,6 +1,6 @@
 # Tmod Theory [RECODE!!!] — Script Source
 
-All 184 Luau scripts (1,150,054 bytes) exported from the Roblox place
+Luau scripts exported from the Roblox place
 **Tmod Theory [RECODE!!!]** (placeId `127143595327317`).
 
 This folder holds **scripts only**. Models, parts, UI, sounds, animations and
@@ -19,6 +19,8 @@ as the source of truth for everything that is not code.
 - Below that, the folder path follows the instance hierarchy in the place.
 - A script that has script children becomes a folder, and its own source goes in `init.<ext>` inside it.
 - Siblings with the same name get `_2`, `_3`, … suffixes, in the order the place lists them.
+
+Scripts per service in the original export (before the unused and duplicate files were removed):
 
 | Service             | Scripts |
 |---------------------|--------:|
@@ -40,20 +42,21 @@ python3 tools/verify.py          # check every file
 python3 tools/verify.py 74 87    # check specific indices
 ```
 
-The script ends with `OK 184  BAD 0` when every file matches the place exactly.
+The script ends with `OK 123  BAD 0` when every kept file matches the place exactly.
 After you edit any script, its manifest row will no longer match. That is
 expected: the manifest is a snapshot from the export.
 
-## Used, unused and duplicate scripts
+## Unused and duplicate scripts removed
 
-The export has been sorted. See [USAGE_REPORT.md](USAGE_REPORT.md) for the full list and the reason for each file.
+This repository keeps only the **123 scripts that are used**. The other 61 have been deleted from the repo:
+- 18 scripts that never run and are never required.
+- 43 byte-for-byte duplicates.
 
-| Folder | Contents | Count |
-|--------|----------|------:|
-| service folders (`ReplicatedStorage/`, …) | scripts that run or are required | 123 |
-| `_Unused/` | scripts that never run and are never required: empty scripts, ServerStorage backups, unrequired modules, and scripts inside asset templates | 18 |
-| `_Duplicates/` | byte-for-byte copies of another script; the first copy stays in its normal place | 43 |
+[USAGE_REPORT.md](USAGE_REPORT.md) lists each removed file and the reason it was removed. The removed files are still in git history at commit `d005069`, under `_Unused/` and `_Duplicates/`. They also still exist in the place itself. In particular, the Workspace duplicates are needed there, because each door and part runs its own copy.
 
-Inside `_Unused/` and `_Duplicates/`, files keep their original path.
+`manifest.tsv` still has all 184 rows. Its columns are:
+- `status`: used, unused or duplicate.
+- `studio_path`: where the file came from.
+- `note`: the reason for its status.
 
-In `manifest.tsv` the `path` column gives each file's current location. The `studio_path` column gives where the file came from, `status` says used, unused or duplicate, and `note` gives the reason. Unused and duplicate files are still in the place itself. In particular, the Workspace duplicates are needed there: each door and part runs its own copy.
+`tools/verify.py` checks only the used rows.

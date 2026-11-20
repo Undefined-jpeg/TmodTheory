@@ -2,7 +2,7 @@
 
 Every one of the 184 exported scripts is sorted into one of three groups: **123 used**, **18 unused** and **43 duplicates**.
 
-This sorting only changes the repository. **Nothing was changed in the Studio place.**
+The unused and duplicate files have since been **deleted from this repository**. To get them back, check out commit `d005069`, where they are still in `_Unused/` and `_Duplicates/`. **Nothing was changed in the Studio place**: every script listed here still exists there.
 
 ## How it was decided
 
@@ -17,14 +17,14 @@ This sorting only changes the repository. **Nothing was changed in the Studio pl
   - It is a module nothing requires.
   - It is a script inside an asset template. `AssetResolver.preparePropClone` and `NpcFactory.create` strip scripts from every clone, so those never run.
 - **Duplicates.** A script is a duplicate when its bytes are identical to an earlier script in the export.
-  - The first copy stays in place, or goes to `_Unused/` if that copy is unused.
-  - Every later copy goes to `_Duplicates/` under its original path.
+  - The first copy is kept, unless that copy is itself unused.
+  - Every later copy was deleted.
 
-> **Do not delete the Workspace duplicates in Studio.** Each door, part and merry-go-round piece runs its own copy of the script. Deleting a copy in the place stops that object from working. In the repo they are moved only because their code is identical; one copy is enough to read and edit the logic.
+> **Do not delete the Workspace duplicates in Studio.** Each door, part and merry-go-round piece runs its own copy of the script. Deleting a copy in the place stops that object from working. In the repo they were removed only because their code is identical; one copy is enough to read and edit the logic.
 
-## Unused (18) — in `_Unused/`
+## Unused (18) — deleted
 
-| # | File | Reason |
+| # | Former file | Reason |
 |--:|------|------|
 | 10 | `_Unused/Workspace/Assets/Machine_BSODA/Script.server.luau` | Empty script (0 bytes) |
 | 52 | `_Unused/StarterPlayer/StarterPlayerScripts/BaldiClient/UiKit.luau` | ModuleScript never required by any script |
@@ -45,9 +45,9 @@ This sorting only changes the repository. **Nothing was changed in the Studio pl
 | 183 | `_Unused/ServerStorage/backups/GuyRevealFlash_PreFail.luau` | Backup copy in ServerStorage; never run or required |
 | 184 | `_Unused/ServerStorage/backups/NotebookSpawner_PreFail.luau` | Backup copy in ServerStorage; never run or required |
 
-## Duplicates (43) — in `_Duplicates/`
+## Duplicates (43) — deleted
 
-| # | File | Same as |
+| # | Former file | Same as |
 |--:|------|------|
 | 3 | `_Duplicates/Workspace/Assets/Part_2/Script.server.luau` | identical to #2 Workspace/Assets/Part/Script.server.luau |
 | 4 | `_Duplicates/Workspace/Assets/Door_2/BlueDoor/Main.server.luau` | identical to #1 Workspace/Assets/Door/BlueDoor/Main.server.luau |
@@ -93,7 +93,7 @@ This sorting only changes the repository. **Nothing was changed in the Studio pl
 | 177 | `_Duplicates/ServerStorage/backups/AssetConfig_PreSounds.luau` | identical to #73 ReplicatedStorage/BaldiShared/AssetConfig.luau |
 | 179 | `_Duplicates/ServerStorage/backups/GameConfig_PreFail.luau` | identical to #178 ServerStorage/backups/GameConfig_BackupGuy.luau |
 
-## Used (123) — left in place
+## Used (123) — kept
 
 | # | File |
 |--:|------|
